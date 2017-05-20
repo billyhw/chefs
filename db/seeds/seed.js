@@ -50,7 +50,7 @@ exports.seed = function(knex, Promise) {
                   knex('ingredients').insert([{ id: 9, name: 'chili beans'}]),
                   knex('ingredients').insert([{ id: 10, name: 'pork shoulder'}]),
                   knex('ingredients').insert([{ id: 11, name: 'salsa'}]),
-                  knex('ingredients').insert([{ id: 12, name: 'water'}])
+                  knex('ingredients').insert([{ id: 12, name: 'water'}]) 
 
 
                 ]);
