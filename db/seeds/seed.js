@@ -37,7 +37,7 @@ exports.seed = function(knex, Promise) {
                   knex('recipe_ingredients').insert([{ ingredient_id: 9, recipe_id: 9, amount: 2, measuringUnit: 'cans' }]),
                   knex('recipe_ingredients').insert([{ ingredient_id: 10, recipe_id: 10, amount: 0.75, measuringUnit: 'lb' }]),
                   knex('recipe_ingredients').insert([{ ingredient_id: 11, recipe_id: 11, amount: 16, measuringUnit: 'oz' }]),
-                  knex('recipe_ingredients').insert([{ ingredient_id: 12, recipe_id: 12, amount: 2, measuringUnit: 'c' }])
+                  knex('recipe_ingredients').insert([{ ingredient_id: 12, recipe_id: 12, amount: 2, measuringUnit: 'c' }]),
 
                   knex('ingredients').insert([{ id: 1, name: 'baby spinach'}]),
                   knex('ingredients').insert([{ id: 2, name: 'basmati rice'}]),
