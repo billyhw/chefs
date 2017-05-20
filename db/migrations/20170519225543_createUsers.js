@@ -1,4 +1,3 @@
-
 exports.up = function(knex, Promise) {
     return createUserTable()
     .then(createChefsTable)
@@ -18,9 +17,10 @@ exports.up = function(knex, Promise) {
         table.string('password').notNullable();
         table.string('picture');
         table.string('address').notNullable();
-        table.integer('phoneNumber').notNullable();
-        table.string('allergies');
-        table.string('dietaryRestrictions');
+        // change to bigInteger for 10-digit phone number
+        table.bigInteger('phoneNumber').notNullable();
+        // table.string('allergies');
+        // table.string('dietaryRestrictions');
     });
 }
 
@@ -30,9 +30,11 @@ function createChefsTable () {
         table.string('firstName').notNullable();
         table.string('lastName').notNullable();
         table.string('email').notNullable().unique();
+        // added password for chefs
+        table.string('password').notNullable();
         table.string('picture').notNullable();
         table.string('description').notNullable();
-        table.integer('phoneNumber').notNullable();
+        table.bigInteger('phoneNumber').notNullable();
     });
 }
 
@@ -55,7 +57,7 @@ function createRecipesTable () {
         table.increments('id');
         table.string('name').notNullable();
         table.integer('cookingTime').notNullable();
-        table.string('img').notNullable();
+        table.string('imgUrl').notNullable();
         table.string('intolerances');
         table.string('cuisine').notNullable();
         table.string('diet');
@@ -68,13 +70,15 @@ function createIngredientsTable () {
     return knex.schema.createTable('ingredients', function (table) {
         table.increments('id');
         table.string('name');
-        table.string('measuringUnit');
+        // I moved this to recipe_ingredients in case different recipes use different units
+        // table.string('measuringUnit');
     });
 }
 
 function createRecipeIngredientsTable () {
     return knex.schema.createTable('recipe_ingredients', function (table) {
         table.integer('amount');
+        table.string('measuringUnit')
         table.integer('ingredientID');
         table.integer('recipeID');
         table.foreign('ingredientID').references('ingredients.id');
@@ -101,7 +105,7 @@ function createChefRecipesTable () {
         table.foreign('recipeID').references('recipes.id');
     });
 }
-  
+
 };
 
 exports.down = function(knex, Promise) {
@@ -113,7 +117,7 @@ exports.down = function(knex, Promise) {
     .then(dropOrders)
     .then(dropChefs)
     .then(dropUsers);
-    
+
 
     function dropUsers () {
         return knex.schema.dropTableIfExists('users')
@@ -146,5 +150,5 @@ exports.down = function(knex, Promise) {
     function dropChefRecipes () {
         return knex.schema.dropTableIfExists('chef_recipes')
     }
-  
+
 };
